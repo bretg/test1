@@ -7,18 +7,27 @@ jobs:
   cross-repo:
     runs-on: ubuntu-latest
     steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}'
       - name: SEND - Dispatch repository event
         run: |
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`);
-        curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
+          curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
              -H "Cookie: logged_in=no" \
              -u ${{ secrets.CROSSREPO_TOKEN }}
              -H "Content-Type: text/plain; charset=utf-8" \
              -d $'{
-          "title": "a new issue",
-          "body": "a pr was merged over on test 1!",
-          "labels": [
-            "auto"
-          ]
-        }'
+               "title": "a new issue",
+               "body": "a pr was merged over on test 1!",
+               "labels": [ "auto" ]
+            }'
