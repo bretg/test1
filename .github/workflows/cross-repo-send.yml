@@ -9,7 +9,16 @@ jobs:
     steps:
       - name: SEND - Dispatch repository event
         run: |
-          curl -X POST https://api.github.com/repos/bretg/test2/dispatches \
-          -H 'Accept: application/vnd.github.everest-preview+json' \
-          -u ${{ secrets.CROSSREPO_TOKEN }} \
-          --data '{"event_type": "merge", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+  const payload = JSON.stringify(github.context.payload, undefined, 2)
+  console.log(`The event payload: ${payload}`);
+        curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
+             -H "Cookie: logged_in=no" \
+             -u ${{ secrets.CROSSREPO_TOKEN }}
+             -H "Content-Type: text/plain; charset=utf-8" \
+             -d $'{
+          "title": "a new issue",
+          "body": "a pr was merged over on test 1!",
+          "labels": [
+            "auto"
+          ]
+        }'
