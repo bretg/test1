@@ -1,7 +1,7 @@
 name: Remote Dispatch Send Action
 
 on:
-  merge_group:
+  push:
 
 jobs:
   cross-repo:
