@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo labels
-        run: |
-          echo "labels: ${{ fromJSON(github.event.pull_request.labels) }}"
+        run: echo '${{ fromJSON(github.event.pull_request.labels) }}'
       - name: SEND - Dispatch repository event
 	if: contains(github.event.pull_request.labels.*.name, 'do not port')
         run: |
