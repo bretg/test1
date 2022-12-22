@@ -22,9 +22,10 @@ jobs:
         run: echo '${{ toJSON(matrix) }}'
       - name: SEND - Dispatch repository event
         run: |
+          echo "merge comment: ${{ github.event.head_commit.message }}" && \
           curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
              -H "Cookie: logged_in=no" \
-             -u ${{ secrets.CROSSREPO_TOKEN }}
+             -u ${{ secrets.CROSSREPO_TOKEN }} \
              -H "Content-Type: text/plain; charset=utf-8" \
              -d $'{
                "title": "a new issue",
