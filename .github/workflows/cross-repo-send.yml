@@ -16,7 +16,6 @@ jobs:
       - name: SEND - Dispatch repository event
         if: contains(github.event.pull_request.labels.*.name, 'documentation')
         run: |
-	  
           curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
              -H "Cookie: logged_in=no" \
              -u ${{ secrets.CROSSREPO_TOKEN }} \
