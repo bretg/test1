@@ -10,10 +10,11 @@ jobs:
   cross-repo:
     runs-on: ubuntu-latest
     steps:
-      - name: echo labels
-        run: echo '${{ toJSON(github.event.pull_request.labels) }}'
+      - name: Dump labels
+        id: github_context_step
+        run: echo '${{ toJSON(github.event.pull_request) }}'
       - name: SEND - Dispatch repository event
-	if: contains(github.event.pull_request.labels.*.name, 'do not port')
+	if: contains(github.event.pull_request.labels.*.name, 'bug')
         run: |
           curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
              -H "Cookie: logged_in=no" \
