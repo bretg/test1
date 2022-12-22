@@ -28,6 +28,6 @@ jobs:
              -H "Content-Type: text/plain; charset=utf-8" \
              -d $'{
                "title": "Port PR: ${{ github.event.head_commit.message }}",
-               "body": "a pr was merged over on test 1:\n\n- timestamp: ${{ github.event.head_commit.timestamp }}",
+               "body": "a pr was merged over on test 1:- timestamp: ${{ github.event.head_commit.timestamp }}",
                "labels": [ "auto" ]
             }'
