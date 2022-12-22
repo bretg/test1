@@ -13,9 +13,8 @@ jobs:
       - name: dump
         run: echo '${{ toJSON(github.event.pull_request) }}'
       - name: create issue in other repo
-        if: "!contains(github.event.pull_request.labels.*.name, 'do not port') && ${{github.event.pull_request.merged}}"
+        if: "!contains(github.event.pull_request.labels.*.name, 'do not port') && github.event.pull_request.merged == 'true'"
         run: |
-          echo "merged: ${{github.event.pull_request.merged}}" && \
           curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
              -H "Cookie: logged_in=no" \
              -u ${{ secrets.CROSSREPO_TOKEN }} \
