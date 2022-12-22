@@ -14,7 +14,7 @@ jobs:
         id: github_context_step
         run: echo '${{ toJSON(github) }}'
       - name: SEND - Dispatch repository event
-        if: contains(github.event.pull_request.labels.*.name, 'documentation')
+        if: !contains(github.event.pull_request.labels.*.name, 'do not port')
         run: |
           curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
              -H "Cookie: logged_in=no" \
@@ -22,6 +22,6 @@ jobs:
              -H "Content-Type: text/plain; charset=utf-8" \
              -d $'{
                "title": "New PR in Test1: ${{ github.event.pull_request.title }}",
-               "body": "a pr was merged over on test 1\\n\\n- timestamp: ${{ github.event.pull_request.base.closed_at }}",
+               "body": "a pr was merged over on test 1\\n\\n- timestamp: ${{ github.event.pull_request.merged_at\\n- [https://github.com/bretg/test1/pull/${{github.event.number}}](https://github.com/bretg/test1/pull/${{github.event.number}}) }}",
                "labels": [ "auto" ]
             }'
