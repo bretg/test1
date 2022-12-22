@@ -24,12 +24,13 @@ jobs:
         run: echo '${{ toJSON(matrix) }}'
       - name: SEND - Dispatch repository event
         run: |
+          echo "labels: ${{ github.event.pull_request.labels }}" && \
           curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
              -H "Cookie: logged_in=no" \
              -u ${{ secrets.CROSSREPO_TOKEN }} \
              -H "Content-Type: text/plain; charset=utf-8" \
              -d $'{
-               "title": "Port PR: ${{ github.event.head_commit.message }}",
-               "body": "a pr was merged over on test 1 timestamp: ${{ github.event.head_commit.timestamp }}",
+               "title": "Port PR: ${{ toJSON(github.event.head_commit.message) }}",
+               "body": "a pr was merged over on test 1\\n\\n- timestamp: ${{ github.event.head_commit.timestamp }}",
                "labels": [ "auto" ]
             }'
