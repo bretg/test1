@@ -1,7 +1,9 @@
 name: Cross-repo Issue Creation
 
 on:
-  merge_group:
+  push:
+    branches:
+      - "main"
 
 jobs:
   cross-repo:
