@@ -1,7 +1,8 @@
 name: Cross-repo Issue Creation
 
 on:
-  push:
+  pull-request:
+    types: [closed]
     branches:
       - "main"
 
@@ -30,7 +31,7 @@ jobs:
              -u ${{ secrets.CROSSREPO_TOKEN }} \
              -H "Content-Type: text/plain; charset=utf-8" \
              -d $'{
-               "title": "Port PR: ${{ toJSON(github.event.head_commit.message) }}",
+               "title": ${{ toJSON(github.event.head_commit.message) }},
                "body": "a pr was merged over on test 1\\n\\n- timestamp: ${{ github.event.head_commit.timestamp }}",
                "labels": [ "auto" ]
             }'
