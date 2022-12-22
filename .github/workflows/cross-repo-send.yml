@@ -21,7 +21,7 @@ jobs:
              -u ${{ secrets.CROSSREPO_TOKEN }} \
              -H "Content-Type: text/plain; charset=utf-8" \
              -d $'{
-               "title": "New PR in Test1: ${{ github.event.head_commit.message }}",
-               "body": "a pr was merged over on test 1\\n\\n- timestamp: ${{ github.event.head_commit.timestamp }}",
+               "title": "New PR in Test1: ${{ github.event.pull_request.title }}",
+               "body": "a pr was merged over on test 1\\n\\n- timestamp: ${{ github.event.pull_request.base.closed_at }}",
                "labels": [ "auto" ]
             }'
