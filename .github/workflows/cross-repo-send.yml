@@ -10,10 +10,7 @@ jobs:
   cross-repo:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
-      - name: SEND - Dispatch repository event
+      - name: create issue in other repo
         if: "!contains(github.event.pull_request.labels.*.name, 'do not port')"
         run: |
           curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
