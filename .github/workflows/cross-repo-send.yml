@@ -10,8 +10,6 @@ jobs:
   cross-repo:
     runs-on: ubuntu-latest
     steps:
-      - name: dump
-        run: echo '${{ toJSON(github.event.pull_request) }}'
       - name: create issue in other repo
         if: "!contains(github.event.pull_request.labels.*.name, 'do not port') && github.event.pull_request.merged"
         run: |
