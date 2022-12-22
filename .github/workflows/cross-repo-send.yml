@@ -1,4 +1,4 @@
-name: Remote Dispatch Send Action
+name: Cross-repo Issue Creation
 
 on:
   push:
@@ -22,13 +22,12 @@ jobs:
         run: echo '${{ toJSON(matrix) }}'
       - name: SEND - Dispatch repository event
         run: |
-          echo "merge comment: ${{ github.event.head_commit.message }}" && \
           curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
              -H "Cookie: logged_in=no" \
              -u ${{ secrets.CROSSREPO_TOKEN }} \
              -H "Content-Type: text/plain; charset=utf-8" \
              -d $'{
-               "title": "a new issue",
-               "body": "a pr was merged over on test 1!",
+               "title": "Port PR: ${{ github.event.head_commit.message }}",
+               "body": "a pr was merged over on test 1:\n\n- timestamp: ${{ github.event.head_commit.timestamp }}",
                "labels": [ "auto" ]
             }'
