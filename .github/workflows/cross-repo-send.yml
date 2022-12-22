@@ -10,9 +10,6 @@ jobs:
   cross-repo:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump labels
-        id: github_context_step
-        run: echo '${{ toJSON(github.event.pull_request.labels) }}'
       - name: SEND - Dispatch repository event
         if: contains(github.event.pull_request.labels.*.name, 'bug')
         run: |
