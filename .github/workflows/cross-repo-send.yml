@@ -10,15 +10,18 @@ jobs:
   cross-repo:
     runs-on: ubuntu-latest
     steps:
+      - name: echo labels
+        run:
+          echo "labels: ${{ fromJSON(github.event.pull_request.labels) }}"
       - name: SEND - Dispatch repository event
+	if: contains(github.event.pull_request.labels.*.name, 'do not port')
         run: |
-          echo "labels: ${{ github.event.pull_request.labels }}" && \
           curl -X "POST" "https://api.github.com/repos/bretg/test2/issues?state=all" \
              -H "Cookie: logged_in=no" \
              -u ${{ secrets.CROSSREPO_TOKEN }} \
              -H "Content-Type: text/plain; charset=utf-8" \
              -d $'{
-               "title": ${{ toJSON(github.event.head_commit.message) }},
+               "title": "New PR in Test1: ${{ github.event.head_commit.message }}",
                "body": "a pr was merged over on test 1\\n\\n- timestamp: ${{ github.event.head_commit.timestamp }}",
                "labels": [ "auto" ]
             }'
