@@ -21,4 +21,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
-          gh issue create --repo prebid/prebid-cache-java --title "New PR in PBC-Go: ${{ github.event.pull_request.title }}" --body "simple" --label auto
+          gh issue create --repo bretg/test2 --title "New PR in test1: ${{ github.event.pull_request.title }}" --body "simple" --label auto
