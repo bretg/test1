@@ -21,8 +21,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
+          echo -e "A PR was merged over on test 1\n\n- [https://github.com/bretg/test1/pull/${{github.event.number}}](https://github.com/bretg/test1/pull/${{github.event.number}})\n- timestamp: ${{ github.event.pull_request.merged_at}}" > msg
+          export msg=$(cat msg)
           gh issue create --repo bretg/test2 --title "New PR in test1: ${{ github.event.pull_request.title }}" \
-              --body 'A PR was merged over on test 1
-- [https://github.com/bretg/test1/pull/${{github.event.number}}](https://github.com/bretg/test1/pull/${{github.event.number}})
-- timestamp: ${{ github.event.pull_request.merged_at}}' \
+              --body "$msg" \
+
               --label auto
