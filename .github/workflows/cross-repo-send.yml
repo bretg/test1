@@ -25,4 +25,4 @@ jobs:
                --repo prebid/prebid-cache-java \
                --title "New PR in PBC-Go: ${{ github.event.pull_request.title }}" \
                --body "A PR was merged over in PBC-Go\\n\\n- [https://github.com/prebid/prebid-cache/pull/${{github.event.number}}](https://github.com/prebid/prebid-cache/pull/${{github.event.number}})\\n- timestamp: ${{ github.event.pull_request.merged_at}}" \
-               --label "auto"
+               --label auto
