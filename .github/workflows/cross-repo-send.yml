@@ -25,5 +25,4 @@ jobs:
           export msg=$(cat msg)
           gh issue create --repo bretg/test2 --title "New PR in test1: ${{ github.event.pull_request.title }}" \
               --body "$msg" \
-
               --label auto
