@@ -20,4 +20,5 @@ jobs:
         if: "!contains(github.event.pull_request.labels.*.name, 'do not port') && github.event.pull_request.merged"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: gh issue create --repo prebid/prebid-cache-java --title "New PR in PBC-Go: ${{ github.event.pull_request.title }}" --body "simple" --label auto
+        run: |
+          gh issue create --repo prebid/prebid-cache-java --title "New PR in PBC-Go: ${{ github.event.pull_request.title }}" --body "simple" --label auto
